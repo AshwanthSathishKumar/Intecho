@@ -770,19 +770,21 @@
                 color: var(--primary);
             }
 
-            .section-modal {
+/* Modal Base Styles */
+.section-modal {
     display: none;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3); /* Subtle overlay for contrast */
-    z-index: 10; /* Ensures it’s above glass cards */
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
     align-items: center;
     justify-content: center;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
+    overflow-y: auto;
 }
 
 .section-modal.active {
@@ -796,187 +798,243 @@
     align-items: center;
     justify-content: center;
     width: 90%;
-    max-width: 800px;
-    padding: var(--size-4);
+    max-width: 850px;
+    padding: var(--size-3);
+    min-height: 0;
 }
-.enlarged-card .poster-space {
-        width: 100%;
-        max-width: 300px; /* Limit width for portrait orientation */
-        height: clamp(300px, 40vh, 450px); /* Taller than wide for portrait */
-        background: rgba(255, 255, 255, 0.5);
-        backdrop-filter: blur(10px);
-        border-radius: var(--radius-3);
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
 
-    .enlarged-card .poster-space img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain; /* Ensures the image fills the container while maintaining aspect ratio */
-        object-position: center; /* Centers the image */
-    }
-
-    /* Adjust responsiveness for smaller screens */
-    @media (max-width: 768px) {
-        .enlarged-card .poster-space {
-            max-width: 250px;
-            height: clamp(250px, 35vh, 350px);
-        }
-    }
-
-    @media (max-width: 480px) {
-        .enlarged-card .poster-space {
-            max-width: 200px;
-            height: clamp(200px, 30vh, 300px);
-        }
-    }
-
+/* Enlarged Card Styles */
 .enlarged-card {
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(25px);
     border-radius: var(--radius-4);
     padding: var(--size-4);
-    box-shadow: 0 10px 60px rgba(0, 0, 0, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 12px 70px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.7);
     width: 100%;
-    max-height: 80vh;
-    overflow-y: auto;
-    transform: scale(0.8);
+    max-height: 85vh; /* Reduced to fit viewport */
+    overflow-y: auto; /* Scroll if needed */
+    transform: scale(0.9);
     animation: cardZoomIn 0.4s var(--ease-3) forwards;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--size-3);
+    gap: var(--size-2); /* Reduced gap for tighter layout */
+    position: relative;
 }
 
-.enlarged-card .logo-container {
-    width: clamp(80px, 15vw, 120px);
-    height: clamp(80px, 15vw, 120px);
-}
-
+/* Poster Space */
 .enlarged-card .poster-space {
-    height: clamp(200px, 30vh, 300px);
     width: 100%;
-    background: rgba(255, 255, 255, 0.5);
-    font-size: clamp(18px, 2.5vw, 24px);
+    max-width: 320px;
+    height: clamp(280px, 45vh, 400px); /* Reduced height to fit more content */
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-3);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-.enlarged-card h3 {
-    font-size: clamp(24px, 4vw, 32px);
-    color: var(--primary);
+.enlarged-card .poster-space img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
 }
 
-.enlarged-card p {
-    font-size: clamp(16px, 2vw, 20px);
-    color: #333;
-}
-
+/* Ensure Register Button Stays Visible */
 .enlarged-card .register-btn {
-    font-size: clamp(16px, 2vw, 18px);
-    padding: var(--size-3) var(--size-4);
+    display: inline-block;
+    padding: var(--size-2) var(--size-3);
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    color: var(--text-1);
+    text-decoration: none;
+    border-radius: var(--radius-3);
+    font-size: clamp(14px, 1.5vw, 16px);
+    transition: all 0.3s var(--ease-3);
+    font-family: var(--font-family-stylish);
+    margin-top: var(--size-2); /* Reduced margin */
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    white-space: nowrap; /* Prevent text wrapping */
 }
 
+/* Modal Arrows */
 .modal-arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(10px);
-    border: none;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(200, 200, 255, 0.3));
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
     color: var(--text-1);
-    font-size: 28px;
-    padding: var(--size-2);
+    font-size: 26px;
+    padding: var(--size-2) var(--size-3);
     cursor: pointer;
-    border-radius: var(--radius-round);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: all 0.3s var(--ease-3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 .modal-arrow.prev {
-    left: var(--size-3);
+    left: -60px;
 }
 
 .modal-arrow.next {
-    right: var(--size-3);
+    right: -60px;
 }
 
 .modal-arrow:hover {
-    background: var(--primary);
+    background: linear-gradient(135deg, var(--primary), #7f9cf5);
     color: white;
-    transform: translateY(-50%) scale(1.15);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
 }
 
+/* Close Button */
 .modal-close {
     position: absolute;
-    top: var(--size-3);
-    right: var(--size-3);
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(10px);
-    border: none;
+    top: var(--size-2);
+    right: var(--size-2);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 200, 200, 0.3));
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
     color: var(--text-1);
     font-size: 24px;
     padding: var(--size-2);
     cursor: pointer;
-    border-radius: var(--radius-round);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: all 0.3s var(--ease-3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 .modal-close:hover {
-    background: #e53e3e;
+    background: linear-gradient(135deg, #e53e3e, #f56565);
     color: white;
     transform: scale(1.15);
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* Responsiveness */
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
     .modal-content {
         width: 95%;
-        padding: var(--size-3);
+        padding: var(--size-2);
     }
 
     .enlarged-card {
-        max-height: 70vh;
-        padding: var(--size-3);
+        padding: var(--size-2); /* Reduced padding */
+        max-height: 80vh; /* Reduced further for mobile */
+        width: 90%;
+        transform: scale(0.85);
+        gap: var(--size-1); /* Tighter gap */
     }
 
     .enlarged-card .logo-container {
-        width: clamp(60px, 12vw, 90px);
-        height: clamp(60px, 12vw, 90px);
+        width: clamp(50px, 10vw, 80px); /* Smaller logo */
+        height: clamp(50px, 10vw, 80px);
     }
 
     .enlarged-card .poster-space {
-        height: clamp(150px, 25vh, 200px);
+        max-width: 240px; /* Reduced width */
+        height: clamp(200px, 40vh, 300px); /* Reduced height */
     }
 
     .enlarged-card h3 {
-        font-size: clamp(20px, 5vw, 28px);
+        font-size: clamp(18px, 4vw, 24px); /* Smaller title */
+        margin: var(--size-1) 0;
     }
 
     .enlarged-card p {
-        font-size: clamp(14px, 3vw, 18px);
+        font-size: clamp(12px, 2.5vw, 14px); /* Smaller description */
+        margin: var(--size-1) 0;
+    }
+
+    .enlarged-card .register-btn {
+        font-size: clamp(12px, 2.5vw, 14px); /* Smaller button text */
+        padding: var(--size-1) var(--size-2); /* Smaller padding */
+        margin-top: var(--size-1); /* Reduced margin */
     }
 
     .modal-arrow {
-        font-size: 24px;
+        width: 40px;
+        height: 40px;
+        font-size: 22px;
+        padding: var(--size-1);
+        left: var(--size-1);
+        right: var(--size-1);
+    }
+
+    .modal-arrow.prev {
+        left: var(--size-1);
+    }
+
+    .modal-arrow.next {
+        right: var(--size-1);
+    }
+
+    .modal-close {
+        width: 36px;
+        height: 36px;
+        font-size: 20px;
         padding: var(--size-1);
     }
 }
 
 @media (max-width: 480px) {
+    .enlarged-card {
+        width: 85%;
+        max-height: 75vh; /* Further reduced */
+        padding: var(--size-1); /* Minimal padding */
+    }
+
     .enlarged-card .poster-space {
-        height: clamp(120px, 20vh, 150px);
+        max-width: 200px;
+        height: clamp(180px, 35vh, 260px); /* Even smaller */
+    }
+
+    .enlarged-card h3 {
+        font-size: clamp(16px, 3.5vw, 20px);
+    }
+
+    .enlarged-card p {
+        font-size: clamp(11px, 2vw, 13px);
+    }
+
+    .enlarged-card .register-btn {
+        font-size: clamp(11px, 2vw, 13px);
+        padding: var(--size-1) var(--size-2);
     }
 
     .modal-arrow {
-        font-size: 20px;
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+    }
+
+    .modal-close {
+        width: 32px;
+        height: 32px;
+        font-size: 18px;
     }
 }
 
 /* Animation */
 @keyframes cardZoomIn {
-    from { transform: scale(0.8); opacity: 0; }
+    from { transform: scale(0.85); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
 }
 
@@ -1970,7 +2028,7 @@
             }
         }, 2000);
     
-        // Modal Functionality for Glass Cards
+// Modal Functionality for Glass Cards
 function openModal(card, sectionId, cardsArray, index) {
     const modal = document.getElementById(`${sectionId}-modal`);
     const enlargedCard = document.getElementById(`${sectionId}-enlarged-card`);
@@ -2009,6 +2067,19 @@ function openModal(card, sectionId, cardsArray, index) {
 
     // Show the modal
     modal.classList.add('active');
+
+    // Scroll to center on mobile
+    if (window.innerWidth <= 768) {
+        setTimeout(() => {
+            const modalRect = modal.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+            const scrollPosition = modalRect.top + window.scrollY - (viewportHeight / 2) + (modalRect.height / 2);
+            window.scrollTo({
+                top: scrollPosition,
+                behavior: 'smooth'
+            });
+        }, 100); // Delay to ensure modal is rendered
+    }
 
     // Navigation functions
     function showPrevCard() {
