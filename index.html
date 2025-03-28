@@ -43,6 +43,34 @@
                     --shadow-strength: 1%;
                 }
             }
+            .headline-logo {
+                display: block;
+                width: clamp(300px, 40vw, 500px); /* Responsive width */
+                height: auto; /* Maintain aspect ratio */
+                margin: 0 auto var(--size-3); /* Centered with bottom margin */
+                text-align: center;
+                color: var(--primary); /* For consistency with previous text */
+                text-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Subtle shadow for depth */
+                transition: transform 0.3s var(--ease-3); /* Smooth hover effect */
+                animation: sectionFadeIn 0.8s var(--ease-3) forwards; /* Fade-in animation */
+            }
+
+            .headline-logo:hover {
+                transform: scale(1.05); /* Slight zoom on hover for elegance */
+            }
+
+            /* Mobile Responsiveness */
+            @media (max-width: 768px) {
+                .headline-logo {
+                    width: clamp(300px, 35vw, 500px); /* Smaller on mobile */
+                }
+            }
+
+            @media (max-width: 480px) {
+                .headline-logo {
+                    width: clamp(300px, 30vw, 500px); /* Even smaller on tiny screens */
+                }
+            }
             
             body {
                 background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
@@ -263,18 +291,53 @@
                 font-size: 32px;
             }
         }
-            .event-section {
-                min-height: 80vh;
-                padding: var(--size-4);
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                position: relative;
-                overflow: hidden;
-                opacity: 0;
-                animation: sectionFadeIn 0.8s var(--ease-3) forwards;
-            }
+        .event-section {
+        min-height: 60vh;
+        padding: var(--size-4);
+        padding-top: calc(var(--size-4) + 100px); /* Increased to ensure clearance */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        animation: sectionFadeIn 0.8s var(--ease-3) forwards;
+    }
+
+    /* Ensure the logo is positioned correctly */
+    .headline-logo {
+        display: block;
+        width: clamp(300px, 40vw, 500px);
+        height: auto;
+        margin: 0 auto var(--size-1); /* Bottom margin only, no top margin */
+        text-align: center;
+        color: var(--primary);
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s var(--ease-3);
+        animation: sectionFadeIn 0.8s var(--ease-3) forwards;
+        position: relative; /* Ensure it respects parent padding */
+        z-index: 1001; /* Above nav-container's z-index: 1000 */
+        padding-top: 6rem;
+    }
+
+    /* Navigation bar styling (unchanged, just for reference) */
+    .nav-container {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(20px);
+        padding: var(--size-3);
+        z-index: 1000;
+        box-shadow: 0 6px 40px rgba(0, 0, 0, 0.15);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        animation: slideIn 0.5s var(--ease-3);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
 
             .section-container {
                 width: min(1400px, 95%);
@@ -421,6 +484,50 @@
                 justify-content: center;
                 transition: transform 0.3s var(--ease-3);
             }
+            .event-section {
+        padding-top: calc(var(--size-3) + 80px); /* Adjust based on nav height */
+        min-height: 100vh; /* Full viewport height to avoid overlap */
+    }
+
+    /* Add margin to separate video and countdown */
+    .video-container {
+        margin-bottom: var(--size-4); /* Space between video and countdown */
+    }
+
+    /* Ensure countdown container stays below video */
+    .countdown-container {
+        margin-top: var(--size-4); /* Additional spacing if needed */
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .event-section {
+            padding-top: calc(var(--size-2) + 70px); /* Smaller padding for mobile */
+        }
+
+        .video-container {
+            margin-bottom: var(--size-3);
+        }
+
+        .countdown-container {
+            margin-top: var(--size-3);
+        }
+    }
+
+    @media (max-width: 480px) {
+        .event-section {
+            padding-top: calc(var(--size-2) + 60px);
+        }
+
+        .video-container {
+            margin-bottom: var(--size-2);
+        }
+
+        .countdown-container {
+            margin-top: var(--size-2);
+        }
+    }
+
 
             .photo-container:hover {
                 transform: scale(1.05);
@@ -1224,7 +1331,7 @@
                 }
 
                 .event-section, .video-section, .sponsors-section, .event-passes-section {
-                    min-height: 60vh;
+                    min-height: 30vh;
                     padding: var(--size-3);
                 }
 
@@ -1460,12 +1567,13 @@
                 50% { transform: translateY(-10px); }
                 100% { transform: translateY(0); }
             }
-        }
+    
     </style>
   <link rel="icon" href="IEA_LOGO_BG.png"/>
   <title>INTECHO '25</title>
 </head>
 <body>
+    
     <div class="particles" id="particles"></div>
 
     <!-- Background Image -->
@@ -1495,10 +1603,15 @@
         <button class="hamburger" id="hamburger">☰</button>
     </nav>
 
+    <!-- Main Content: Logo, GIF, Countdown -->
     <section id="home" class="event-section">
         <div class="section-container">
-            <h1 class="headline-1 typewriter">Intecho 2025</h1>
-            <p class="subheading">Organized by IEA - Instrumentation Engineers Association</p>
+            <img src="intechologo.png" alt="Intecho 2025 Logo" class="headline-logo">
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <img src="intecho.gif" alt="Intecho 2025 Promo Video" class="video-gif">
+                </div>
+            </div>
             <div class="countdown-container">
                 <div class="countdown-timer">
                     <div class="countdown-item">
@@ -1521,86 +1634,37 @@
                 <div class="event-details">
                     <div class="countdown-item">
                         <h3>Event Date</h3>
-                        <p>April 5, 2025</p>
+                        <p>5 & 6 April, 2025</p>
                     </div>
                     <div class="countdown-item">
                         <h3>Location</h3>
                         <p>IE, MIT</p>
                     </div>
-                    <div class="countdown-item">
-                        <h3>Participants</h3>
-                        <p>500+ Expected</p>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="video" class="video-section">
+    <section id="about-intecho" class="event-section">
         <div class="section-container">
-            <h1 class="headline-1">Intecho 2025 Highlights</h1>
-            <p class="subheading">A Glimpse into the National Level Technical Symposium</p>
-            <div class="video-container">
-                <div class="video-wrapper">
-                    <img src="intecho.gif" alt="Intecho 2025 Promo Video" class="video-gif">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="about-mit" class="event-section">
-        <div class="section-container">
-            <h1 class="headline-1">About MIT</h1>
-            <p class="subheading">Madras Institute of Technology - A Legacy of Excellence</p>
-            <div class="section-layout">
-                <div class="photo-carousel">
-                    <div class="carousel-track" id="mit-carousel">
-                        <div class="carousel-item">
-                            <img src="MIT Campus.jpg" alt="MIT Campus 1">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="AD.png" alt="MIT Campus 2">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="RH.jpg" alt="MIT Campus 3">
-                        </div>
-                    </div>
-                    <button class="carousel-arrow prev" onclick="moveSlide('mit-carousel', -1)">❮</button>
-                    <button class="carousel-arrow next" onclick="moveSlide('mit-carousel', 1)">❯</button>
-                </div>
+            <h1 class="headline-1">About INTECHO</h1>
+            <p class="subheading">The National Level Technical Symposium</p>
                 <div class="about-content">
-                    <p>Founded in 1949, Madras Institute of Technology (MIT) is a pioneering engineering institute in India, located in Chromepet, Chennai. It is renowned for its state-of-the-art facilities, housing over 3,000 students across various disciplines. MIT boasts a distinguished faculty with expertise in engineering and technology, leading research in fields like aerospace, robotics, and more. Notable alumni include Dr. APJ Abdul Kalam, a testament to MIT's legacy of excellence.</p>
-                </div>
+                    <p>The annual national level inter college
+                        technical symposium of the department of
+                        instrumentation engineering, has its
+                        unique style of celebrating education.
+                        Participation in this technical sympoisum
+                        will expose students to a new brand level of
+                        instrumentation. The symposium has
+                        gained this reputation because of its
+                        quality and standards.</p>
+                    </div>
             </div>
         </div>
     </section>
 
-    <section id="about-dept" class="event-section">
-        <div class="section-container">
-            <h1 class="headline-1">About Dept of Instrumentation Engineering</h1>
-            <p class="subheading">Excellence in Instrumentation and Control</p>
-            <div class="section-layout">
-                <div class="photo-carousel">
-                    <div class="carousel-track" id="dept-carousel">
-                        <div class="carousel-item">
-                            <img src="IE1.jpeg" alt="Instrumentation Dept 1">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="IE2.jpeg" alt="Instrumentation Dept 2">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="IE3.jpeg" alt="Instrumentation Dept 3">
-                        </div>
-                    </div>
-                    <button class="carousel-arrow prev" onclick="moveSlide('dept-carousel', -1)">❮</button>
-                    <button class="carousel-arrow next" onclick="moveSlide('dept-carousel', 1)">❯</button>
-                </div>
-                <div class="about-content">
-                    <p>Established in 1960, the Department of Instrumentation Engineering at MIT specializes in instrumentation and control systems. With advanced labs for automation and over 200 students engaged in cutting-edge projects, the department fosters innovation in IoT, robotics, and process control. Its experienced faculty, with deep industry and research expertise, guide students to excel. The department proudly hosts Intecho, a national-level technical symposium, showcasing its commitment to technical excellence.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+
 
     <section id="event-passes" class="event-passes-section">
         <div class="section-container">
@@ -1783,10 +1847,67 @@
                     <img src="BS.png" alt="RoboWorks Logo">
                 </div>
                 <div class="sponsor-logo" data-sponsor="RoboWorks">
+                    <img src="NM.jpg" alt="RoboWorks Logo">
+                </div>
+            </div>
+            <p class="subheading">Certificate Sponsors</p>
+            <div class="sponsor-logos">
+                <div class="sponsor-logo" data-sponsor="RoboWorks">
                     <img src="PV.png" alt="RoboWorks Logo">
                 </div>
-                <div class="sponsor-logo" data-sponsor="RoboWorks">
-                    <img src="NM.jpg" alt="RoboWorks Logo">
+            </div>
+        </div>
+    </section>
+
+    <section id="about-mit" class="event-section">
+        <div class="section-container">
+            <h1 class="headline-1">About MIT</h1>
+            <p class="subheading">Madras Institute of Technology - A Legacy of Excellence</p>
+            <div class="section-layout">
+                <div class="photo-carousel">
+                    <div class="carousel-track" id="mit-carousel">
+                        <div class="carousel-item">
+                            <img src="MIT Campus.jpg" alt="MIT Campus 1">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="AD.png" alt="MIT Campus 2">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="RH.jpg" alt="MIT Campus 3">
+                        </div>
+                    </div>
+                    <button class="carousel-arrow prev" onclick="moveSlide('mit-carousel', -1)">❮</button>
+                    <button class="carousel-arrow next" onclick="moveSlide('mit-carousel', 1)">❯</button>
+                </div>
+                <div class="about-content">
+                    <p>Founded in 1949, Madras Institute of Technology (MIT) is a pioneering engineering institute in India, located in Chromepet, Chennai. It is renowned for its state-of-the-art facilities, housing over 3,000 students across various disciplines. MIT boasts a distinguished faculty with expertise in engineering and technology, leading research in fields like aerospace, robotics, and more. Notable alumni include Dr. APJ Abdul Kalam, a testament to MIT's legacy of excellence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about-dept" class="event-section">
+        <div class="section-container">
+            <h1 class="headline-1">About Dept of Instrumentation Engineering</h1>
+            <p class="subheading">Excellence in Instrumentation and Control</p>
+            <div class="section-layout">
+                <div class="photo-carousel">
+                    <div class="carousel-track" id="dept-carousel">
+                        <div class="carousel-item">
+                            <img src="IE1.jpeg" alt="Instrumentation Dept 1">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="IE2.jpeg" alt="Instrumentation Dept 2">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="IE3.jpeg" alt="Instrumentation Dept 3">
+                        </div>
+                    </div>
+                    <button class="carousel-arrow prev" onclick="moveSlide('dept-carousel', -1)">❮</button>
+                    <button class="carousel-arrow next" onclick="moveSlide('dept-carousel', 1)">❯</button>
+                </div>
+                <div class="about-content">
+                    <p>Established in 1960, the Department of Instrumentation Engineering at MIT specializes in instrumentation and control systems. With advanced labs for automation and over 200 students engaged in cutting-edge projects, the department fosters innovation in IoT, robotics, and process control. Its experienced faculty, with deep industry and research expertise, guide students to excel. The department proudly hosts Intecho, a national-level technical symposium, showcasing its commitment to technical excellence.</p>
                 </div>
             </div>
         </div>
@@ -1892,7 +2013,7 @@
             <div class="contact-details">
                 <div class="contact-item">
                     <h3>Phone</h3>
-                    <p><a href="phone:+91 9941228058">+91 9941228058</a></p>
+                    <p><a href="phone:+91 9941228058">Mohammed Imthiyas M <br> +91 9941228058</a></p>
                 </div>
                 <div class="contact-item">
                     <h3>Address</h3>
